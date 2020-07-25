@@ -51,7 +51,8 @@ def parvez_model(input_shape=(4, 128, 128, 128), n_base_filters=16, depth=4, dro
         current_layer = summation_layer
 
     def parvez1(level_number):
-        convolution1 = create_convolution_block(input_layer=input_layer, n_filters=n_level_filters)
+        input_layer=level_output_layers[level_number]
+        convolution1 = create_convolution_block(input_layer=input_layer, n_filters=level_filters[level_number])
         dropout = SpatialDropout3D(rate=dropout_rate, data_format=data_format)(convolution1)
         convolution2 = create_convolution_block(input_layer=dropout, n_filters=12, dilation_rate=dilation_rate)
         convolution2 = concatenate([dropout, convolution2], axis=1)
